@@ -11,6 +11,8 @@ class Location:
         next_locn = self
 
         print(self.description)
+        for dirn, dest in self.navigation.items():
+            print("To the", dirn, "there is", dest.name)
 
         user_input = input()
         command = ""
@@ -25,4 +27,4 @@ class Location:
             except KeyError:
                 print("You can't go", operand)
 
-        return 
+        return next_locn
