@@ -1,13 +1,21 @@
+import yaml
 import sys
 
 if sys.argv[1] == "":
     program = "example.adv"
-else
+else:
     program = sys.argv[1]
 
 tree = parse(program)
 
-tree.execute()
+print(tree['navigation'])
+
+# tree.execute()
+
+def parse(program):
+    """ Bitch no comments"""
+    return yaml.load(open(program))
+    
 
 print("\n\nThanks for playing ;)")
 
