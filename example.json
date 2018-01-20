@@ -1,0 +1,99 @@
+{
+    "start" : "start",
+    "locations" : [
+        {
+            "id" : "start",
+            "description" : "You are in an empty room.",
+            "always" : [
+                {
+                    "prob" : 1.0,
+                    "event" : "welcome"
+                }
+            ],
+            "choices" : [
+                {
+                    "verb" : "say",
+                    "noun" : "hello",
+                    "event" : "welcome2"
+                }
+            ],
+            "objects" : [
+                "paper"
+            ]
+        },
+        {
+            "id" : "room2",
+            "description" : "This is just another room.",
+            "always" : [
+                {
+                    "prob" : 1.0,
+                    "event" : "room2"
+                }
+            ],
+            "choices" : [
+            ],
+            "objects" : [
+            ]
+        }
+    ],
+    "events" : [
+        {
+            "id" : "welcome",
+            "actions" : [
+                {
+                    "say" : "Hello!"
+                },
+                {
+                    "if" : "seenroom2",
+                    "then" : [
+                        {
+                            "say" : "Condition true."
+                        }
+                    ],
+                    "else" : [
+                        {
+                            "say" : "Condition false."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id" : "room2",
+            "actions" : [
+                {
+                    "say" : "There's nothing here",
+                    "setbool" : "seenroom2"
+                }
+            ]
+        }
+    ],
+    "objects" : [
+        {
+            "id" : "paper",
+            "name" : "sheet of paper",
+            "description" : "It's just a blank piece of paper.",
+            "visible" : true,
+            "carryable" : true
+        }
+    ],
+    "connections" : [
+        {
+            "from" : "start",
+            "to" : "room2",
+            "direction" : "north"
+        }
+    ],
+    "verbs" : [
+
+    ],
+    "bools" : [
+
+    ],
+    "ints" : [
+
+    ],
+    "strings" : [
+
+    ]
+}
