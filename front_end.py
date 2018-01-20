@@ -1,11 +1,19 @@
+"""Functions for parsing input"""
+
 import json
 
-data = json.load(open('example.json'))
+def load_file():
+    """Load a JSON file and gather game info"""
+    data = json.load(open('example.json'))
 
-start = data['start']
+    start = data['start']
 
-locations = {}
-for l in data['locations']:
-    locations[l['id']] = l
+    locations = {}
+    for loc in data['locations']:
+        locations[loc['id']] = loc
 
-print(locations)
+    print(locations)
+
+if __name__ == "__main__":
+    load_file()
+    
