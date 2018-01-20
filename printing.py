@@ -12,7 +12,3 @@ def slow_print(main, direction):
         sys.stdout.flush()
         time.sleep(0.03)
     print ('')
-
-
-slow_print("Hello you!\nYou're the sexiest, like super pretty <3.", 
-"Go west or go North for all I care\nNorth is a cave, so careful\n")
