@@ -1,7 +1,7 @@
 class LocationBuilder:
-    def __init__(self, type_class, id, description):
-        self.type_class = type_class
-        self.id = id
+    def __init__(self, idQ, name, description):
+        self.id = idQ
+        self.name = name
         self.description = description
     
     def with_always(self, always):
@@ -14,12 +14,13 @@ class LocationBuilder:
         self.objects = objects
     
     def build(self):
-        return self.type_class.__class__(self.id, self.description, self.always,
-                                         self.choices, self.objects)
+        return Location(self.id, self.description, self.always,
+                        self.choices, self.objects)
 
 class Location:
-    def __init__(self, id, description, always, choices, objects):
-        self.id          = id 
+    def __init__(self, idQ, name, description, always, choices, objects):
+        self.id          = idQ 
+        self.name        = name
         self.description = description
         self.always      = always
         self.choices     = choices
