@@ -102,3 +102,4 @@ ENV/
 
 # vscode
 .vscode/
+adventure_studio.code-workspace
