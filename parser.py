@@ -1,8 +1,6 @@
 """Functions for parsing input"""
 
-import location
-import tree
-import yaml
+import location, tree, yaml
 
 def parse(program):
     """Load a .adv file and gather game info"""

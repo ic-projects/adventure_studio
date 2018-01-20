@@ -1,8 +1,4 @@
-import parser
-import printing
-import sys
-import tree
-import yaml
+import parser, printing, sys, tree, yaml
 
 if len(sys.argv) != 2:
     program = "example.adv"
