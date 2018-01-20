@@ -8,14 +8,27 @@ locations:
         name: the main hallway
         description: It's a main hallway. There's several doorways off to other rooms.
     kitchen:
-        name: "the kitchen"
-        description: "It's a kitchen. Nothing here though..."
+        name: the kitchen
+        description: It's a kitchen. There's a white marble surface.
+        # events:
+        #     seekeys: 1.0
+        objects:
+            - keys
     bedroom:
-        name: "a small bedroom"
-        description: "There's a bed. You must be in a bedroom."
+        name: a small bedroom
+        description: There's a bed. You must be in a bedroom.
     outside:
-        name: "the great outdoors"
-        description: "Oh no! You've locked yourself out!"
+        name: the great outdoors
+        description: Oh no! You've locked yourself out!
+
+objects:
+    keys:
+        description: It's a set of three golden keys on a large keychain.
+        carryable: true
+
+# events:
+#     seekeys:
+#         text: You see a set of keys lying on the surface.
 
 navigation:
     hallway:     

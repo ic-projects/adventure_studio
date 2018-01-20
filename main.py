@@ -8,5 +8,3 @@ else:
 tree = parser.parse(program)
 
 tree.execute()
-print("\nTHANKS FOR PLAYING!\n")
-
