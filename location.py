@@ -1,3 +1,5 @@
+import printing
+
 class Location:
     def __init__(self, name, description):
         self.name = name
@@ -9,22 +11,23 @@ class Location:
 
     def enter(self):
         next_locn = self
-
-        print(self.description)
+        
+        printing.print_at_speed(self.description,120)
         for dirn, dest in self.navigation.items():
-            print("To the", dirn, "there is", dest.name)
+            printing.print_at_speed("To the " + dirn + " there is " + dest.name + ".", 120)
 
-        user_input = input()
-        command = ""
-        operand = ""
-        for keyword in ['go']:
-            if user_input.startswith(keyword):
-                command = keyword
-                operand = user_input[len(keyword)+1:]
-        if (command == 'go'):
-            try:
-                next_locn = self.navigation[operand]
-            except KeyError:
-                print("You can't go", operand)
+        while(next_locn == self):
+            user_input = input()
+            command = ""
+            operand = ""
+            for keyword in ['go']:
+                if user_input.startswith(keyword):
+                    command = keyword
+                    operand = user_input[len(keyword)+1:]
+            if (command == 'go'):
+                try:
+                    next_locn = self.navigation[operand]
+                except KeyError:
+                    printing.print_at_speed("You can't go " + operand + "!", 120)
 
         return next_locn
