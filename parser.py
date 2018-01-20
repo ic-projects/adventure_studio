@@ -14,9 +14,9 @@ def parse(program):
     
     for src, nav in data['navigation'].items():
         for dirn, dest in nav.items():
-            locations[src].add_nav(dirn, dest)
+            locations[src].add_nav(dirn, locations[dest])
     
-    start = data['start']
+    start = locations[data['start']]
 
     return tree.Tree(start, locations)
 
