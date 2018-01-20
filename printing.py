@@ -1,6 +1,6 @@
 import sys, time, random
 
-speed = 50
+speed = 60
 def slow_print(main, direction):
     for l in main:
         sys.stdout.write(l)

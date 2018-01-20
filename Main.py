@@ -1,5 +1,6 @@
 import yaml
 import sys
+import printing
 
 if sys.argv[1] == "":
     program = "example.adv"
@@ -8,9 +9,8 @@ else:
 
 tree = parse(program)
 
-print(tree['navigation'])
-
-# tree.execute()
+tree.execute()
+print("\nTHANKS FOR PLAYING!\n")
 
 def parse(program):
     """ Bitch no comments"""
@@ -24,6 +24,8 @@ class Tree:
         self.start = start
     def execute(self):
         locn = self.start
-        while (True):
-           locn.enter();
+        while locn != None:
+            locn.enter()
+            locn.doStuff()
+            locn = locn.leave()
 
