@@ -1,6 +1,5 @@
 class LocationBuilder:
-    def __init__(self, idQ, name, description):
-        self.id = idQ
+    def __init__(self, name, description):
         self.name = name
         self.description = description
     
@@ -18,8 +17,7 @@ class LocationBuilder:
                         self.choices, self.objects)
 
 class Location:
-    def __init__(self, idQ, name, description, always, choices, objects):
-        self.id          = idQ 
+    def __init__(self, name, description, always, choices, objects):
         self.name        = name
         self.description = description
         self.always      = always
