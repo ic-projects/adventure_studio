@@ -34,6 +34,16 @@
             ],
             "objects" : [
             ]
+        },
+        {
+            "id" : "room3",
+            "description" : "The door shuts behind you. You're doomed!",
+            "always" : [
+            ],
+            "choices" : [
+            ],
+            "objects" : [
+            ]
         }
     ],
     "events" : [
@@ -81,7 +91,14 @@
         {
             "from" : "start",
             "to" : "room2",
-            "direction" : "north"
+            "direction" : "north",
+            "back" : "south"
+        },
+        {
+            "from" : "start",
+            "to" : "room3",
+            "direction" : "east",
+            "back" : "none"
         }
     ],
     "bools" : [

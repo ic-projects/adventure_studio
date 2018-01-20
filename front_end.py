@@ -11,8 +11,10 @@ def load_file():
 
     # Locations
     locations = {}
+    connections = {}
     for locn in data['locations']:
         locations[locn['id']] = locn
+        connections[locn['id']] = []
 
     # Events
     events = {}
@@ -24,6 +26,13 @@ def load_file():
     for obj in data['objects']:
         objects[obj['id']] = obj
 
+    # Connections
+    # room_id => [(direction, room_id), ...]
+    for con in data['connections']:
+        connections[con['from']].append((con['direction'], con['to']))
+        if con['back'] != 'none':
+            connections[con['to']].append((con['back'], con['from']))
+
     # Bools
     bools = data['bools']
 
@@ -33,7 +42,10 @@ def load_file():
     # Bools
     strings = data['strings']
 
-    return (start, locations, events, objects, bools, ints, strings)
+    print(connections)
+
+    return (start, locations, events, connections, objects, bools, ints, 
+            strings)
 
 if __name__ == "__main__":
     load_file()
