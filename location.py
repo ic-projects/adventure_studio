@@ -31,17 +31,31 @@ class Location:
             except:
                 KeyError
 
-    def enter(self, this, stdscr):
+    def enter(self, this, stdscr, last_locn):
         next_locn = self
+
+        desc = curses.newwin(int(0.5*curses.LINES), curses.COLS, 0, 0)
+        menu = curses.newwin(curses.LINES, curses.COLS, int(0.5*curses.LINES), 0)
+        menu.keypad(True)
+        menu.clear()
+        menu.refresh()
     
         selection = 0
         command = ""
         operand = ""
 
-        while(True):
-            count, command, operand = self.print_menu(stdscr, selection)
+        if self != last_locn:
+            printing.print_at_speed(self.description + "\n", 100, desc)
+            for event in self.events:
+                self.events[event].trigger(desc)
+            for dirn, dest in self.navigation.items():
+                printing.print_at_speed("To the " + dirn + " there is " + dest.name + ".", 100, desc)
+            desc.refresh()
 
-            key = stdscr.getch()
+        while(True):
+            count, command, operand = self.print_menu(menu, selection)
+
+            key = menu.getch()
 
             if key in [curses.KEY_ENTER, ord('\n')]:
                 break
@@ -53,9 +67,9 @@ class Location:
         if command == "go":
             next_locn = self.navigation[operand]
         if command == "pickup":
-            self.objects[operand].pickup(this, operand, stdscr)
+            self.objects[operand].pickup(this, operand, menu)
         if command == "inventory":
-            self.print_inventory(this, stdscr)
+            self.print_inventory(this, menu)
 
         return next_locn
 
@@ -65,18 +79,6 @@ class Location:
         operand = ""
         
         stdscr.clear()
-<<<<<<< HEAD
-        stdscr.addstr(self.description + "\n")
-        
-        for event in self.events:
-            self.events[event].trigger(stdscr)
-=======
-        stdscr.addstr(self.description + "\n\n")
->>>>>>> c067f0588ad96f7e6053f81d1844d251670ffb10
-
-        for dirn, dest in self.navigation.items():
-            stdscr.addstr("To the " + dirn + " there is " + dest.name + ".\n")
-        stdscr.addstr("\n")
 
         for dirn, dest in self.navigation.items():
             menu_string = "-> Go " + dirn + "\n"

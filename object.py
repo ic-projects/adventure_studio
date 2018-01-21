@@ -23,10 +23,10 @@ class Object:
     def pickup(self, this, key, stdscr):
         stdscr.clear()
         if self.carryable:
-            stdscr.addstr("You pickup the " + self.name + ".\n")
+            printing.print_at_speed("You pickup the " + self.name + ".\n", 100, stdscr)
             this.inventory[key] = self
         else:
-            stdscr.addstr("Can't pickup " + self.name + "!\n")
+            printing.print_at_speed("Can't pickup " + self.name + "!\n", 100, stdscr)
         stdscr.getch()
         stdscr.refresh()
 

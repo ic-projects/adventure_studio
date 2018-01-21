@@ -11,8 +11,10 @@ class Tree:
         curses.noecho()
         curses.cbreak()
         curses.curs_set(0)
-        stdscr.keypad(True)
 
+        last_locn = None
         locn = self.start
         while locn != None:
-            locn = locn.enter(self, stdscr)
+            next_lcon = locn.enter(self, stdscr, last_locn)
+            last_locn = locn
+            locn = next_lcon

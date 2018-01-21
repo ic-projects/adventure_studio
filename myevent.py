@@ -18,7 +18,7 @@ class Event:
 
     def trigger(self, stdscr):
         if random.random() <= self.prob:
-            printing.print_at_speed(self.description, 140)
+            printing.print_at_speed(self.description, 100, stdscr)
             if self.fight:
                 fight(self.ennemy)
             if self.image:
