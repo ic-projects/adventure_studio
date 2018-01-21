@@ -33,7 +33,7 @@ class Location:
 
     def enter(self, this, stdscr):
         next_locn = self
-
+    
         selection = 0
         command = ""
         operand = ""
@@ -51,11 +51,13 @@ class Location:
                 selection = (selection + 1) % count
     
         if command == "go":
-            return self.navigation[operand]
+            next_locn = self.navigation[operand]
         if command == "pickup":
-            self.objects[operand].pickup(this, operand)
+            self.objects[operand].pickup(this, operand, stdscr)
         if command == "inventory":
             self.print_inventory(this, stdscr)
+
+        return next_locn
 
     def print_menu(self, stdscr, selection):
         count = 0
@@ -63,37 +65,45 @@ class Location:
         operand = ""
         
         stdscr.clear()
+<<<<<<< HEAD
         stdscr.addstr(self.description + "\n")
         
         for event in self.events:
             self.events[event].trigger(stdscr)
+=======
+        stdscr.addstr(self.description + "\n\n")
+>>>>>>> c067f0588ad96f7e6053f81d1844d251670ffb10
 
         for dirn, dest in self.navigation.items():
-            stdscr.addstr("To the " + dirn + " there is " + dest.name + "\n")
+            stdscr.addstr("To the " + dirn + " there is " + dest.name + ".\n")
+        stdscr.addstr("\n")
 
         for dirn, dest in self.navigation.items():
+            menu_string = "-> Go " + dirn + "\n"
             if count == selection:
-                stdscr.addstr("* : Go " + dirn + "\n")
+                stdscr.addstr(menu_string, curses.A_REVERSE)
                 command = "go"
                 operand = dirn
             else:
-                stdscr.addstr(str(count + 1) + " : Go " + dirn + "\n")
+                stdscr.addstr(menu_string)
             count += 1
 
         for obj_id, obj in self.objects.items():
+            menu_string = "-> Pickup " + obj_id + "\n"
             if count == selection:
-                stdscr.addstr("* : Pickup " + obj_id + "\n")
+                stdscr.addstr(menu_string, curses.A_REVERSE)
                 command = "pickup"
                 operand = obj_id
             else:
-                stdscr.addstr(str(count + 1) + " : Pickup " + obj_id + "\n")
+                stdscr.addstr(menu_string)
             count += 1
 
+        menu_string = "-> Inventory\n"
         if count == selection:
-            stdscr.addstr("* : Inventory\n")
+            stdscr.addstr(menu_string, curses.A_REVERSE)
             command = "inventory"
         else:
-            stdscr.addstr(str(count + 1) + " : Inventory\n")
+            stdscr.addstr(menu_string)
         count += 1
 
         stdscr.refresh()
@@ -101,8 +111,10 @@ class Location:
         return (count, command, operand)
 
     def print_inventory(self, this, stdscr):
+        stdscr.clear()
         stdscr.addstr("Inventory:\n\n")
         for item in this.inventory:
             stdscr.addstr(this.inventory[item].name + ": " + this.inventory[item].description + "\n")
+        stdscr.refresh()
 
-        stdscr.getchr()
+        stdscr.getch()

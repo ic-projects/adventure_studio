@@ -20,10 +20,13 @@ class Object:
         else:
             return asciipictures.display(self.image)
 
-    def pickup(self, this, key):
+    def pickup(self, this, key, stdscr):
+        stdscr.clear()
         if self.carryable:
-            printing.print_at_speed("You pickup the " + self.name + ".", 120)
+            stdscr.addstr("You pickup the " + self.name + ".\n")
             this.inventory[key] = self
         else:
-            printing.print_at_speed("Can't pickup " + self.name + "!!!", 120)
+            stdscr.addstr("Can't pickup " + self.name + "!\n")
+        stdscr.getch()
+        stdscr.refresh()
 
