@@ -10,6 +10,7 @@ class Tree:
         stdscr = curses.initscr()
         curses.noecho()
         curses.cbreak()
+        curses.curs_set(0)
         stdscr.keypad(True)
 
         locn = self.start
