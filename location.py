@@ -1,4 +1,7 @@
 import curses
+import printing, utils
+import myevent
+import object
 
 class Location:
     def __init__(self, name, description):
@@ -6,14 +9,25 @@ class Location:
         self.description = description
         self.objects = {}
         self.navigation = {}
+        self.events = {}
 
     def add_nav(self, dirn, dest):
         self.navigation[dirn] = dest
+    
+    def add_events(self, events):
+        for event in events:
+            self.events[event] = myevent.Event(events[event]['prob'],  events[event]['description'])
 
-    def add_obj(self, obj_id, obj):
-        self.objects[obj_id] = obj
+    def add_objects(self, objs):
+        for obj in objs:
+            self.objects[obj] = object.Object(objs[obj]['name'], objs[obj]['description'])
+            try:
+                if objs[obj]['carryable'] == 'yes':
+                    self.objects[obj].make_carryable()
+            except:
+                KeyError
 
-    def enter(self, stdscr):
+    def enter(self, this, stdscr):
         next_locn = self
 
         selection = 0
@@ -36,6 +50,8 @@ class Location:
             return self.navigation[operand]
         if command == "pickup":
             self.objects[operand].pickup()
+        if command == "inventory":
+            self.print_inventory(this, stdscr)
 
     def print_menu(self, stdscr, selection):
         count = 0
@@ -66,6 +82,20 @@ class Location:
                 stdscr.addstr(str(count + 1) + " : Pickup " + obj_id + "\n")
             count += 1
 
+        if count == selection:
+            stdscr.addstr("* : Inventory\n")
+            command = "inventory"
+        else:
+            stdscr.addstr(str(count + 1) + " : Inventory\n")
+        count += 1
+
         stdscr.refresh()
 
         return (count, command, operand)
+
+    def print_inventory(self, this, stdscr):
+        stdscr.addstr("Inventory:\n\n")
+        for item in this.inventory:
+            stdscr.addstr(this.inventory[item].name + ": " + this.inventory[item].description + "\n")
+
+        stdscr.getchr()
