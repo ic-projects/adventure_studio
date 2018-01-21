@@ -49,7 +49,7 @@ class Location:
         if command == "go":
             next_locn = self.navigation[operand]
         if command == "pickup":
-            self.objects[operand].pickup(this, operand)
+            self.objects[operand].pickup(this, operand, stdscr)
         if command == "inventory":
             self.print_inventory(this, stdscr)
 
