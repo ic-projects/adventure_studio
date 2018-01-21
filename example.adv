@@ -37,14 +37,15 @@ locations:
         name: the great outdoors
         description: ""
         events:
-            prob: 1.0
-            description: ""
-            conditional:
-                if: "keys in inventory"
-                then:
-                    - "say: You have the keys"
-                else:
-                    - "say: You've locked yourself out!"
+            locked:
+                prob: 1.0
+                description: ""
+                conditional:
+                    if: "keys in inventory"
+                    then:
+                        - "say: You have the keys"
+                    else:
+                        - "say: You've locked yourself out!"
         
 
 objects:

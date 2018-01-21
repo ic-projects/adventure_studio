@@ -49,6 +49,9 @@ def parse(program):
             pass
     
     locations["kitchen"].objects["keys"].add_pickup_cmd(commands.AddNavCmd(locations["outside"], locations["hallway"], "north"))
+    locations["outside"].events["locked"].add_cond(commands.InCond(locations["outside"].navigation, "north", locations["hallway"])) #commands.InCond(locations["outside"].navigation, "north", "hallway"))
+    locations["outside"].events["locked"].append_then(commands.NullCmd())
+    locations["outside"].events["locked"].append_else(commands.KillCmd("q"))
     
     # Parse starting location
     start = locations[data['start']]

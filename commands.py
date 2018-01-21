@@ -5,33 +5,37 @@ class Command:
         raise NotImplementedError
 
 class Condition:
-    def eval(self):
-        raise NotImplementedError
+    pass
 
 class TrueCond(Condition):
     def eval(self):
         return True
 
 class InCond(Condition):
-    def __init__(self, dic, key):
+    def __init__(self, dic, key, val):
         self.dic = dic
         self.key = key
+        self.val = val
     def eval(self):
         try:
-            self.dic[self.key]
-            return True
+            if self.dic[self.key] == self.val:
+                return True
         except KeyError:
             return False
 
-class SayCmd(Command):
+
+class KillCmd(Command):
     def __init__(self, str):
         self.str = str
 
     def execute(self):
+        print("Oh no! You've locked yourself out!")
         exit(1)
 
 class NullCmd(Command):
     def __init__(self):
+        pass
+    def execute(self):
         pass
 
 class AddNavCmd(Command):
