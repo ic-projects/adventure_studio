@@ -26,6 +26,10 @@ class Location:
                     self.objects[obj].make_carryable()
             except:
                 KeyError
+            try:
+                self.objects[obj].add_image(objs[obj]['image'])
+            except:
+                KeyError
 
     def enter(self, this, stdscr):
         next_locn = self
@@ -60,6 +64,9 @@ class Location:
         
         stdscr.clear()
         stdscr.addstr(self.description + "\n")
+        
+        for event in self.events:
+            self.events[event].trigger(stdscr)
 
         for dirn, dest in self.navigation.items():
             stdscr.addstr("To the " + dirn + " there is " + dest.name + "\n")

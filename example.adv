@@ -9,6 +9,7 @@ locations:
                 name: "Pen"
                 description: "Just a pen..."
                 carryable: "yes"
+                image: "pen"
     hallway:
         name: the main hallway
         description: It's a main hallway. There's several doorways off to other rooms.
