@@ -24,12 +24,12 @@ class Location:
             try:
                 if objs[obj]['carryable'] == 'yes':
                     self.objects[obj].make_carryable()
-            except:
-                KeyError
+            except KeyError:
+                pass
             try:
                 self.objects[obj].add_image(objs[obj]['image'])
-            except:
-                KeyError
+            except KeyError:
+                pass
 
     def enter(self, this, stdscr, last_locn):
         next_locn = self
@@ -79,6 +79,9 @@ class Location:
         operand = ""
         
         stdscr.clear()
+
+        for event in self.events:
+            self.events[event].trigger(stdscr)
 
         for dirn, dest in self.navigation.items():
             menu_string = "-> Go " + dirn + "\n"

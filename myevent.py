@@ -8,6 +8,18 @@ class Event:
         self.description = description
         self.fight = False
         self.image = ""
+        self.cond = None
+        self.thenC = []
+        self.elseC = []
+    
+    def add_cond(self, cond):
+        self.cond = cond
+
+    def append_then(self, x):
+        self.thenC.append(x)
+    
+    def append_else(self, x):
+        self.elseC.append(x)
     
     def add_room_fighter(figher):
         self.fight = True
@@ -19,7 +31,14 @@ class Event:
     def trigger(self, stdscr):
         if random.random() <= self.prob:
             printing.print_at_speed(self.description, 100, stdscr)
+            if self.cond != None:
+                if self.cond.eval():
+                    for cmd in self.thenC:
+                        cmd.execute()
+                else:
+                    for cmd in self.elseC:
+                        cmd.execute()
             if self.fight:
                 fight(self.ennemy)
-            if self.image:
+            if self.image != "":
                 stdscr.addstr(asciipictues.display(picture) + "\n")

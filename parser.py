@@ -2,6 +2,11 @@
 
 import location, object, tree, utils, yaml
 
+def parse_cond(cond, locations, event, events, k, loc):
+    raise(NotImplementedError)
+
+def parse_command(cmd, locations, event, events, k, loc):
+    raise(NotImplementedError)
 def parse(program):
     """Load a .adv file and gather game info"""
     data = yaml.load(open(program))
@@ -23,6 +28,26 @@ def parse(program):
         for dirn, dest in nav.items():
             locations[src].add_nav(dirn, locations[dest])
     
+    for k, loc in data['locations'].items():
+        try:
+            events = loc[k]['events']
+            for event in events:
+                try:
+                    conditionals = event['conditional']
+                    for conditional in conditionals:
+                        locations[k].events[event].add_condition(parse_cond(conditionals[conditional]['if'], locations, event, events, k, loc))
+                        for t in conditionals[condition]['then']:
+                            locations[k].events[event].append_then(parse_command(t, locations, event, events, k, loc))
+                        for t in conditionals[condition]['else']:
+                            try:
+                                locations[k].events[event].append_else(parse_command(t, locations, event, events, k, loc))
+                            except KeyError:
+                                pass
+                except KeyError:
+                    pass
+        except KeyError:
+            pass
+    
     # Parse starting location
     start = locations[data['start']]
 
@@ -30,3 +55,4 @@ def parse(program):
 
 if __name__ == "__main__":
     parse('example.adv')
+

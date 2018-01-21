@@ -25,12 +25,27 @@ locations:
                 name: "House keys"
                 description: "Can't get trapped with those in your pocket!"
                 carryable: "yes"
+                conditional:
+                    if: true
+                    then: 
+                        - "add: navigation from outside to hallway direction north"
+                    else:
     bedroom:
         name: a small bedroom
         description: There's a bed. You must be in a bedroom.
     outside:
         name: the great outdoors
-        description: Oh no! You've locked yourself out!
+        description: ""
+        events:
+            prob: 1.0
+            description: ""
+            conditional:
+                if: "keys in inventory"
+                then:
+                    - "say: You have the keys"
+                else:
+                    - "say: You've locked yourself out!"
+        
 
 objects:
     keys:

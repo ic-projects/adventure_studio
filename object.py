@@ -7,6 +7,10 @@ class Object:
         self.description = description
         self.carryable = False 
         self.image = ""
+        self.pickup_cmd = []
+    
+    def add_pickup_cmd(self, cmd):
+        self.pickup_cmd.append(cmd)
     
     def make_carryable(self):
         self.carryable = True
@@ -22,6 +26,8 @@ class Object:
 
     def pickup(self, this, key, stdscr):
         stdscr.clear()
+        for cmd in self.pickup_cmd:
+            cmd.execute()
         if self.carryable:
             printing.print_at_speed("You pickup the " + self.name + ".\n", 100, stdscr)
             this.inventory[key] = self
