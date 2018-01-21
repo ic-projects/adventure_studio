@@ -80,8 +80,8 @@ class Location:
         
         stdscr.clear()
 
-        for event in self.events:
-            self.events[event].trigger(stdscr)
+        # for event in self.events:
+        #     self.events[event].trigger(stdscr)
 
         for dirn, dest in self.navigation.items():
             menu_string = "-> Go " + dirn + "\n"

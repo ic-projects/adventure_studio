@@ -34,8 +34,6 @@ class NullCmd(Command):
     def __init__(self):
         pass
 
-class TrueCond()
-
 class AddNavCmd(Command):
     def __init__(self, origin, dest, direction):
         self.origin = origin

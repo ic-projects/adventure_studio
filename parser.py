@@ -1,6 +1,6 @@
 """Functions for parsing input"""
 
-import location, object, tree, utils, yaml
+import location, object, tree, utils, yaml, commands
 
 def parse_cond(cond, locations, event, events, k, loc):
     raise(NotImplementedError)
@@ -47,6 +47,8 @@ def parse(program):
                     pass
         except KeyError:
             pass
+    
+    locations["kitchen"].objects["keys"].add_pickup_cmd(commands.AddNavCmd(locations["outside"], locations["hallway"], "north"))
     
     # Parse starting location
     start = locations[data['start']]
